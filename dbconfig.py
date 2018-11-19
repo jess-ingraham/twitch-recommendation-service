@@ -5,3 +5,8 @@ USER = 'root'
 PASS = '2x2rj0qydKmO42jG'
 
 STEAMKEY = 'B280DA6909B1E40A67ABADB437979FBD'
+
+apiEndpoints = {
+	getUserID: f'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=B280DA6909B1E40A67ABADB437979FBD&vanityurl={userVanityUrlName}'
+
+}
