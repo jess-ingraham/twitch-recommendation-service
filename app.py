@@ -11,7 +11,7 @@ def home():
 @app.route("/search")
 def search_result():
 	vanityURL = request.args.get("vanityURL")
-	##make the request from steam and get the user id,
+	##make the request from steam and get the user id, using the endpoints in the config file
 	#if the result is 42 then there is an error and render the error page
 	#
 	#return render_template("error.html", message = "Your Id was not found")
