@@ -1,0 +1,22 @@
+{
+  "name": "twitch-recommendation-service",
+  "version": "1.0.0",
+  "description": "repo for projects in programming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jess-ingraham/twitch-recommendation-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jess-ingraham/twitch-recommendation-service/issues"
+  },
+  "homepage": "https://github.com/jess-ingraham/twitch-recommendation-service#readme",
+  "dependencies": {
+    "flask": "^0.2.10"
+  }
+}
