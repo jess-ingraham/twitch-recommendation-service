@@ -1,4 +1,3 @@
-http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=XXXXXXXXXXXXXXXXXXXXXXX&vanityurl=userVanityUrlName
 
 IP = '35.237.23.200'
 PORT = '3306'
