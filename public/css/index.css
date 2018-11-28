@@ -1,0 +1,20 @@
+.top-header > h1{
+	font-size: 2.8em;
+	width:60%;
+}
+
+.top-header > h3{
+	font-size: 1.2em;
+	width:40%;
+	margin:0 auto 0 0;
+}
+
+.top-header{
+	display: flex;
+	align-content: center;
+	justify-content: space-between;
+	align-items: center;
+
+	background-color: lightblue;
+	padding:1%;
+}
