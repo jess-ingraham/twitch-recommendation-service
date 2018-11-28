@@ -1,0 +1,28 @@
+ol{
+	list-style: none;
+	text-align: left;
+	width:50%;
+
+	display: inline-flex;
+	flex-direction: column;
+
+}
+
+ol > li{
+	text-align: left;
+	font-size: 1.2em;
+	padding:1%;
+}
+
+.instructions{
+	display: flex;
+	justify-content: center;
+	align-content: space-around;
+	align-items: center;
+
+	margin:8% auto;
+}
+
+.instructions >div:last-child{
+	border-left: 2px solid black;
+}

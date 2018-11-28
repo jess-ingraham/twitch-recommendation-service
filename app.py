@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect, session
 import dbconfig as config
 from os import path
-from modules import topsteam as top
+import json
+from modules import topsteam as top, helpers as helpers
+
+
 
 dir_path = path.dirname(path.realpath(__file__))
 
@@ -18,7 +21,14 @@ dir_path = path.dirname(path.realpath(__file__))
 # twitchClientID = 'dcu07oqpaghxhvrwpf7rz85qxzqkik'
 
 
+
 app = Flask(__name__, static_folder=dir_path + '\\public')
+app.secret_key = "super duper secret. Don't tell anyone"
+
+##functions 
+def redir(message):
+	session['message'] = message
+	return redirect(url_for('.home'))
 
 ##css pages
 @app.route('/css/<path:path>')
@@ -30,8 +40,9 @@ def css(path):
 def home():
 	##create the file for the homepage and serve it with:
 	results = top.getTopGames()
-	##print(results)
-	return render_template("index.html", err="", games = results)
+	err = session['message'] if 'message' in session else ''
+
+	return render_template("index.html", err=err, games = results)
 
 @app.route('/find-your-url')
 def about():
@@ -39,14 +50,14 @@ def about():
 
 @app.route("/search", methods = ["POST"])
 def search_result():
-	#vanityURL = request.args.get("vanityURL")
-	parts = request.form['url'].split('/')
-	print(parts)
-	s_id = parts[5]
 
-	##make the call to find the user
+	resp = helpers.checkURL(request.form['url'])
+	print(resp)
 
-
+	if resp == 42:
+		return redir('We could not find your id. Make sure your url is correct')
+	elif resp == 3:
+		return redir('Make sure your url starts with "http://steamcommunity.com"')
 	##make the request from steam and get the user id, using the endpoints in the config file
 	#if the result is 42 then there is an error and render the error page
 	#
