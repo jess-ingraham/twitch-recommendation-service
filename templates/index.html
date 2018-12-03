@@ -4,16 +4,46 @@
 		<title>Steam Recommendations</title>
 		<meta charset="utf-8"/>
 
+		<link rel="stylesheet" type="text/css" href="/css/base.css">
+		<link rel="stylesheet" type="text/css" href="/css/index.css">
+
 	</head>
+
 	<body>
+
 		<div class="container">
-			<h1>Welcome</h1>
 
-			<h2>Search for a user</h2>
-			<form method= "POST" action = "/search">
-				<input type="text" name="vanityURL">
+			<header>
+				<div class="top-header">
+					<h1>Steam Recommendations</h1>
+					<h3><a href="/find-your-url">Not sure how to find your profile URL? Click here!</a></h3>
+				</div>
 
-			</form>
+				<h2>Paste your profile url in the box below</h2>
+
+				<form method= "POST" action = "/search">
+					<input type="text" name="url">
+					<input type="submit" value="Submit">
+				</form>
+			</header>
+
+
+			<div class = "content">
+				<h2>
+					Here are some videos of the top 5 games on Steam
+				</h2>
+				<ul>
+				{% for game in games %} 
+					<li>{{ game.name }}</li>
+				{% endfor %}
+				</ul>
+
+			</div>
+			
+
 		</div>
+
 	</body>
+
+
 </html>

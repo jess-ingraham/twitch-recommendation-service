@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jess-ingraham/twitch-recommendation-service#readme",
   "dependencies": {
-    "flask": "^0.2.10"
+    "flask": "^0.2.10",
+    "python": "0.0.4"
   }
 }

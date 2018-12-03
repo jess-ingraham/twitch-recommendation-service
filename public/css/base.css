@@ -1,0 +1,57 @@
+*{
+	padding:0;
+	margin:0;
+	width:100%;
+	color:black;
+	font-size: 100%;
+	font-family: Arial, sans-serif;
+	text-align: center;
+	text-decoration: none;
+/*	overflow-x: hidden;
+*/	box-sizing: border-box;
+	border:none;
+}
+
+.error{
+	display:inline-block;
+	width:auto;
+	font-size: 1.5em;
+	color:red;
+	padding:1%;
+	margin-bottom:2%;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+h1{
+	font-size: 4em;
+	padding: 1%;
+}
+h2{
+	font-size: 2.8em;
+	padding: 1%;
+
+}
+
+h3{
+	font-size: 1.4em;
+	padding: 1%;
+
+}
+
+h4{
+	font-size: 1.2em;
+	padding:1%;
+}
+
+header{
+	padding:2% auto;
+	width:100%;
+
+}
+
+
+
+
