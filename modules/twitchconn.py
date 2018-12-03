@@ -1,4 +1,3 @@
-
 import requests
 import json
 
@@ -13,7 +12,7 @@ def getClips(gameName):
     endpoint = f'https://api.twitch.tv/helix/games?name={gameName}'
     resp = requests.get(endpoint, headers=headers)
     gameID= resp.json()['data'][0]['id']
-    results= __getVideoInfo(gameID)
+    results ={ gameName: __getVideoInfo(gameID) }
     return results
 
 

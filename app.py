@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, session
 import dbconfig as config
 from os import path
 import json
-from modules import topsteam as top, helpers as helpers
+from modules import helpers as helpers
 
 
 

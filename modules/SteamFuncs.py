@@ -1,14 +1,6 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import requests
 import json, xml
 
-
-# In[2]:
 
 
 def getFriends(userID):
@@ -24,8 +16,6 @@ def getFriends(userID):
     
     return resp.json()['friendslist']['friends']
 
-
-# In[3]:
 
 
 def getOwnedGames(userID):
@@ -46,9 +36,6 @@ def getOwnedGames(userID):
         return("Not available.")
 
 
-# In[4]:
-
-
 def getGlobalStats(gameId):
     endpoint = "http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/"
     
@@ -65,9 +52,6 @@ def getGlobalStats(gameId):
     return resp.json()
 
 
-# In[5]:
-
-
 def getUsername(userId):
     endpoint = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
     
@@ -82,8 +66,6 @@ def getUsername(userId):
     
     return resp.json()['response']['players'][0]['personaname']
 
-
-# In[ ]:
 
 
 
