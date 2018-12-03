@@ -26,9 +26,12 @@ app = Flask(__name__, static_folder=dir_path + '\\public')
 app.secret_key = "super duper secret. Don't tell anyone"
 
 ##functions 
-def redir(message):
-	session['message'] = message
-	return redirect(url_for('.home'))
+#def redir(message):
+#	session['message'] = message
+#	return redirect(url_for('.home'))
+
+def makeError(errmessage):
+	return render_template('error.html', message = errmessage);
 
 ##css pages
 @app.route('/css/<path:path>')
@@ -40,9 +43,8 @@ def css(path):
 def home():
 	##create the file for the homepage and serve it with:
 	results = top.getTopGames()
-	err = session['message'] if 'message' in session else ''
 
-	return render_template("index.html", err=err, games = results)
+	return render_template("index.html", games = results)
 
 @app.route('/find-your-url')
 def about():
@@ -55,9 +57,9 @@ def search_result():
 	print(resp)
 
 	if resp == 42:
-		return redir('We could not find your id. Make sure your url is correct')
+		return makeError("We could not find your userId. If you are using a custom URL make sure it's correct.")
 	elif resp == 3:
-		return redir('Make sure your url starts with "http://steamcommunity.com"')
+		return makeError('Make sure your url starts with "http://steamcommunity.com"')
 	##make the request from steam and get the user id, using the endpoints in the config file
 	#if the result is 42 then there is an error and render the error page
 	#

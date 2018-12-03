@@ -20,9 +20,6 @@
 				</div>
 
 				<h2>Paste your profile url in the box below</h2>
-				{% if err != '' %}
-					<span class="error">{{err}}</span>
-				{% endif %}
 
 				<form method= "POST" action = "/search">
 					<input type="text" name="url">
