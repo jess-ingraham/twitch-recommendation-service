@@ -1,15 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import requests
 import json, xml
-
-
-# In[2]:
-
 
 def getFriends(userID):
     endpoint = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/"
@@ -23,10 +13,6 @@ def getFriends(userID):
     resp = requests.get(endpoint, params = parameters)
     
     return resp.json()['friendslist']['friends']
-
-
-# In[3]:
-
 
 def getOwnedGames(userID):
     endpoint = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
@@ -46,9 +32,6 @@ def getOwnedGames(userID):
         return("Not available.")
 
 
-# In[4]:
-
-
 def getGlobalStats(gameId):
     endpoint = "http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/"
     
@@ -63,9 +46,6 @@ def getGlobalStats(gameId):
     resp = requests.get(endpoint, params = parameters)
     
     return resp.json()
-
-
-# In[5]:
 
 
 def getUsername(userId):
@@ -83,11 +63,8 @@ def getUsername(userId):
     return resp.json()['response']['players'][0]['personaname']
 
 
-# In[6]:
-
-
 def getFinalDict(userId):
-    friends = getFriends(grantId)
+    friends = getFriends(userId)
     
     friendList = {}
     for friend in friends:
@@ -100,9 +77,6 @@ def getFinalDict(userId):
                 del friendList[username][i]['img_logo_url']
                 
     return friendList
-
-
-# In[ ]:
 
 
 
