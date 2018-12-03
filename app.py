@@ -42,7 +42,7 @@ def css(path):
 @app.route("/")
 def home():
 	##create the file for the homepage and serve it with:
-	results = top.getTopGames()
+	results = helpers.getVideosForHomePage
 
 	return render_template("index.html", games = results)
 
