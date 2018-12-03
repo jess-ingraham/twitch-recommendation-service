@@ -83,6 +83,25 @@ def getUsername(userId):
     return resp.json()['response']['players'][0]['personaname']
 
 
+# In[6]:
+
+
+def getFinalDict(userId):
+    friends = getFriends(grantId)
+    
+    friendList = {}
+    for friend in friends:
+        username = getUsername(friend['steamid'])
+        friendList[username] = getOwnedGames(friend['steamid'])
+        if isinstance(getOwnedGames(friend['steamid']),list):
+            for i in range(len(getOwnedGames(friend['steamid']))):
+                del friendList[username][i]['appid']
+                del friendList[username][i]['img_icon_url']
+                del friendList[username][i]['img_logo_url']
+                
+    return friendList
+
+
 # In[ ]:
 
 
