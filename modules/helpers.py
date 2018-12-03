@@ -35,7 +35,13 @@ def checkURL(url):
     except:
         return 3 ##something wrong with the url
 
-def getVideosForHomePage(){
+def getVideosForHomePage():
+    topGames= top.getTopGames()
+    topGamesList = []
+    for game in topGames:
+        topGamesList.append(getClips(game['name']))
+    return topGamesList
+
     ## this calls top.getTopGames() which returns an array of dictionaries with
     '''{
         'appid': value['appid']
@@ -51,10 +57,31 @@ def getVideosForHomePage(){
 
     we want this function to return a list of dictionarys that are returned from getClips
     '''
+def getResultsPage(userId):
+    allFriends = steam.getFinalDict(userId)
+    finalResult = {}
 
-    
+    for friendName, gamesList in allFriends.items():
+        for game in gamesList:
+            if game['name'] not in finalResult:
+                finalResult[game['name']]= {'friends' : [friendName]}
+            else:
+                finalResult[game['name']]['friends'].append(friendName)
 
-}
+    for game in finalResult.keys():
+        finalResult[game]['videos'] = twitch.getClips(game)
+
+    return finalResult
+
+
+
+
+
+
+        
+
+
+
 
 
 
