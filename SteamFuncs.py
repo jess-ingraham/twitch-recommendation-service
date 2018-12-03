@@ -75,6 +75,8 @@ def getFinalDict(userId):
                 del friendList[username][i]['appid']
                 del friendList[username][i]['img_icon_url']
                 del friendList[username][i]['img_logo_url']
+
+    
                 
     return friendList
 
