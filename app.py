@@ -42,8 +42,7 @@ def css(path):
 @app.route("/")
 def home():
 	##create the file for the homepage and serve it with:
-	results = helpers.getVideosForHomePage
-
+	results = helpers.getVideosForHomePage()
 	return render_template("index.html", games = results)
 
 @app.route('/find-your-url')
@@ -54,23 +53,23 @@ def about():
 def search_result():
 
 	resp = helpers.checkURL(request.form['url'])
-	print(resp)
 
 	if resp == 42:
 		return makeError("We could not find your userId. If you are using a custom URL make sure it's correct.")
 	elif resp == 3:
 		return makeError('Make sure your url starts with "http://steamcommunity.com"')
-	##make the request from steam and get the user id, using the endpoints in the config file
-	#if the result is 42 then there is an error and render the error page
-	#
-	#return render_template("error.html", message = "Your Id was not found")
-	#
-	#otherwise use the steam api to get their information
-	#if their profile status is not public show an error page
-	#return render_template("error.html", message = "Your profile is private, to see your friends list set your profile to public" )
-	#
-	##if the search results 
-	return render_template("results.html")
+
+
+	else:
+		username, games = helpers.getResultsPage(resp)
+		# for key, value in topGames:
+		# 	print(key, value)
+
+		print(games)
+
+		return render_template("results.html",username = username, games = games)
+	
+	
 
 
 

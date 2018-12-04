@@ -8,17 +8,20 @@ headers = {'Client-ID':clientID}
 
 
 def getClips(gameName):
-    
+
     endpoint = f'https://api.twitch.tv/helix/games?name={gameName}'
     resp = requests.get(endpoint, headers=headers)
-    gameID= resp.json()['data'][0]['id']
-    results =  __getVideoInfo(gameID)
-    return results
+    if len(resp.json()['data']) > 0:
+        gameID = resp.json()['data'][0]['id']
+        results =  __getVideoInfo(gameID)
+        return results
+    else:
+        return None
 
 
 
 def __getVideoInfo(gameID):
-    endpoint = f'https://api.twitch.tv/helix/videos?game_id={gameID}&sort=views&first=5&language=en'
+    endpoint = f'https://api.twitch.tv/helix/videos?game_id={gameID}&sort=views&first=4&language=en'
     resp = requests.get(endpoint, headers=headers)
     videos = []
     for video in resp.json()['data']:

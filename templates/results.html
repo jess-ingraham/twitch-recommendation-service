@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Your results</title>
-</head>
-<body>
+	<head>
+		<title>Game recommendations for {username}</title>
+		<link rel="stylesheet" type="text/css" href="/css/base.css">
+		<link rel="stylesheet" type="text/css" href="/css/cards.css">
+	</head>
+	<body>
+		<div class="container">
 
-<!-- <iframe src="https://player.twitch.tv/?autoplay=false&video=v341081301" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe><a href="https://www.twitch.tv/videos/341081301?tt_content=text_link&tt_medium=vod_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;"></a>
- -->
- 	
+			<h1>Hi {{username}}</h1>
+			<h2>Here's some games your friends are playing</h2>
 
-</body>
+			<div class="content">
+				<ul>
+					{% for gameName, friendsAndVids in games.items() %}
+					<li>
+						{% if len(friendsAndVids.friends) > 1 %}
+						<p>Your friend <span class="friend">{friendsAndVids.friends[0]}</span> is playing</p>
+						{% else %}
+						<p>Your friends 
+							{% for friend in friendsAndVids.friends %}
+							<span class="friend">{friend}</span>
+							{% endfor %}
+
+							are playing
+						</p>
+						<h2>{gameName}</h2>
+
+						<div class="videos">
+							{% for video in friendsAndVids.videos %}
+							<iframe class="card" src="https://player.twitch.tv/?autoplay=false&video=v{{video.id}}" frameborder="0" allowfullscreen="true" scrolling="no"></iframe><!-- <a href="https://www.twitch.tv/videos/341081301?tt_content=text_link&tt_medium=vod_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;"></a> -->
+							{% endfor %}
+						</div>
+
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	<!-- <iframe src="https://player.twitch.tv/?autoplay=false&video=v341081301" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe><a href="https://www.twitch.tv/videos/341081301?tt_content=text_link&tt_medium=vod_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;"></a>
+	 -->
+	 	
+
+	</body>
 </html>

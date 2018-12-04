@@ -6,6 +6,7 @@
 
 		<link rel="stylesheet" type="text/css" href="/css/base.css">
 		<link rel="stylesheet" type="text/css" href="/css/index.css">
+		<link rel="stylesheet" type="text/css" href="/css/cards.css">
 
 	</head>
 
@@ -33,8 +34,15 @@
 					Here are some videos of the top 5 games on Steam
 				</h2>
 				<ul>
-				{% for game in games %} 
-					<li>{{ game.name }}</li>
+				{% for gameName, videoList in games.items() %} 
+					<li>
+						<h4>{{ gameName }}</h4>
+						<div class="videos">	
+						{% for video in videoList.videos %}
+							<iframe class="card" src="https://player.twitch.tv/?autoplay=false&video=v{{video.id}}" frameborder="0" allowfullscreen="true" scrolling="no"></iframe><!-- <a href="https://www.twitch.tv/videos/341081301?tt_content=text_link&tt_medium=vod_embed" style="padding:2px 0px 4px; display:block; width:345px; font-weight:normal; font-size:10px; text-decoration:underline;"></a> -->
+							{% endfor %}
+						</div>
+					</li>
 				{% endfor %}
 				</ul>
 

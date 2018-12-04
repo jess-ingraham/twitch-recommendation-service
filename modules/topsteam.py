@@ -16,8 +16,6 @@ def getTopGames():
             ,'score':value['score_rank']
         }
         games.append(newdict)
-        
-    top5games = sorted(games, key = lambda x: x['score'])
+    return sorted(games, key = lambda x: x['score'])
     
-    return top5games[:5]
 

@@ -1,14 +1,13 @@
 import requests
 import json
 
-import topsteam as top, SteamFuncs as steam, twitchconn as twitch
+from modules import topsteam as top, SteamFuncs as steam, twitchconn as twitch
 
 
 def __getUserId(vanityUrl):
     endpoint = f'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=B280DA6909B1E40A67ABADB437979FBD&vanityurl={vanityUrl}'
     
     resp = requests.get(endpoint)
-    print(resp.json())
     try:
         if resp.json()['response']['success'] == 42:
             return 42
@@ -37,26 +36,24 @@ def checkURL(url):
 
 def getVideosForHomePage():
     topGames= top.getTopGames()
-    topGamesList = []
-    for game in topGames:
-        topGamesList.append(getClips(game['name']))
+    topGamesList = {}
+    count = 0
+
+    while (len(topGamesList) < 5):
+        ##if there are no videos returned for that game, we skip it and go to the next game
+        game = topGames[count]
+        clips = twitch.getClips(game['name'])
+
+        if clips != None:
+            topGamesList[game['name']] = {'videos': clips}
+            count += 1
+        else:
+            count += 1
+            continue
+
     return topGamesList
 
-    ## this calls top.getTopGames() which returns an array of dictionaries with
-    '''{
-        'appid': value['appid']
-        ,'name':value['name']
-        ,'average_hour':value['average_2weeks']/60
-        ,'score':value['score_rank']
-    }
-    where appID is the steam appId
 
-    take those results and for each game, get the videos from twitch using
-    twich.getClips(gameName)
-    which returns dictionary with the game name as a key and list of vids as the value
-
-    we want this function to return a list of dictionarys that are returned from getClips
-    '''
 def getResultsPage(userId):
     allFriends = steam.getFinalDict(userId)
     finalResult = {}
@@ -71,7 +68,7 @@ def getResultsPage(userId):
     for game in finalResult.keys():
         finalResult[game]['videos'] = twitch.getClips(game)
 
-    return finalResult
+    return (steam.getUsername(userId), finalResult)
 
 
 

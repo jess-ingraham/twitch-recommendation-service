@@ -1,6 +1,8 @@
 import requests
 import json, xml
 
+steamKey = 'B280DA6909B1E40A67ABADB437979FBD'
+
 def getFriends(userID):
     endpoint = "http://api.steampowered.com/ISteamUser/GetFriendList/v0001/"
     
@@ -26,26 +28,36 @@ def getOwnedGames(userID):
 
     resp = requests.get(endpoint, params = parameters)
     
+    
+    #print(resp.json())
     try:
-        return resp.json()['response']['games']
-    except:
-        return("Not available.")
+        games = []
+        for game in resp.json()['response']['games']:
+            #'name': 'Mini Metro', 'playtime_2weeks': 37, 'playtime_forever': 547
+            games.append({'name': game['name'], 'playtime_2weeks': game['playtime_2weeks'],'playtime_forever': game['playtime_forever'] })
+
+        topGames = sorted(games, key = lambda x: x['playtime_forever']) ##sort the games by playtime
+        return topGames[:5] #return the top 5
+
+    except KeyError:
+        return None
 
 
-def getGlobalStats(gameId):
-    endpoint = "http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/"
+
+# def getGlobalStats(gameId):
+#     endpoint = "http://api.steampowered.com/ISteamUserStats/GetGlobalStatsForGame/v0001/"
     
-    parameters = {
-        'format' : xml,
-        'key' : steamKey,
-        'appId' : gameId,
-        'count' : 1,
-        'name[0]' : 'global.map.emp_isle'
-    }
+#     parameters = {
+#         'format' : xml,
+#         'key' : steamKey,
+#         'appId' : gameId,
+#         'count' : 1,
+#         'name[0]' : 'global.map.emp_isle'
+#     }
     
-    resp = requests.get(endpoint, params = parameters)
+#     resp = requests.get(endpoint, params = parameters)
     
-    return resp.json()
+#     return resp.json()
 
 
 def getUsername(userId):
@@ -67,17 +79,15 @@ def getFinalDict(userId):
     friends = getFriends(userId)
     
     friendList = {}
+
     for friend in friends:
         username = getUsername(friend['steamid'])
-        friendList[username] = getOwnedGames(friend['steamid'])
-        if isinstance(getOwnedGames(friend['steamid']),list):
-            for i in range(len(getOwnedGames(friend['steamid']))):
-                del friendList[username][i]['appid']
-                del friendList[username][i]['img_icon_url']
-                del friendList[username][i]['img_logo_url']
+        games = getOwnedGames(friend['steamid'])
 
-    
-                
+        if isinstance(games, list):
+            friendList[username] = games
+        else: ##skip the user if they have no games
+            continue
     return friendList
 
 
